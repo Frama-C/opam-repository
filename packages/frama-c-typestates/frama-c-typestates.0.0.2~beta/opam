@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "Frama-C typestates plug-in"
+description:
+  "This Frama-C plug-in is used to specify and prove typestates properties"
+maintainer: "https://git.frama-c.com/frama-c"
+authors: "Sebastien Patte"
+license: "LGPL-2.1-only"
+homepage: "https://frama-c.com/fc-plugins/typestates.html"
+bug-reports: "https://git.frama-c.com/pub/typestates/issues"
+depends: [
+  "ocaml" {>= "5.2.0"}
+  "dune" {>= "3.13" & != "3.13.0"}
+  "frama-c" {>= "34.0~" & < "35.0~"}
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--promote-install-files=false"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+  ["dune" "install" "-p" name "--create-install-files" name]
+]
+dev-repo: "git+https://git.frama-c.com/pub/typestates"
+url {
+  src:
+    "https://git.frama-c.com/pub/typestates/-/archive/0.0.2-beta/typestates-0.0.2-beta.tar.bz2"
+  checksum: [
+    "md5=9952bab493e20a5ed0916a0ca1fc5ca1"
+    "sha512=3749d54f36b3e94d05f88d61ed3e06f12991d2acea765013acd95a3a96ad7a17859bf4f7eb1e64127e584d3fb31dc983ef1de26cefb7f761c62622be2e3d14cd"
+  ]
+}
